@@ -1,6 +1,10 @@
 #include<iostream>
 using namespace std;
-class Reservation
+class enq
+{
+  
+};
+class res
 {
   
 };
