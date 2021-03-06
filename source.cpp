@@ -5,7 +5,7 @@ class res
 {
 	public:
 	string name_of_cus[100],tno;
-	long long con_no;
+	long int con_no;
 	int dd,mm,yy,no_of_seat,i;
 	int total_fare;
 		void get()
@@ -21,13 +21,8 @@ class res
 			}
 			cout<<"ENTER THE CONTACT NUMBER: ";
 			cin>>con_no;
-			cout<<"ENTER THE DATE OF JOURNEY(dd/mm/yy): "<<endl;
-			cout<<"ENTER THE DATE: ";
-			cin>>dd;
-			cout<<"ENTER THE MONTH: ";
-			cin>>mm;
-			cout<<"ENTER THE YEAR: ";
-			cin>>yy;
+			cout<<"ENTER THE DATE OF JOURNEY(dd/mm/yy): ";
+			cin>>dd>>mm>>yy;
 		}
 
 		void calculate()
