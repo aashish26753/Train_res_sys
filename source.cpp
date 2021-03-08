@@ -5,7 +5,7 @@ class res
 {
 	public:
 	string name_of_cus[100],tno;
-	long int con_no;
+	long long con_no;
 	int dd,mm,yy,no_of_seat,i;
 	int total_fare;
 		void get()
@@ -54,6 +54,40 @@ class res
 		cout<<"TOTAL FARE: Rs. "<<total_fare<<endl;
 		cout<<"TOTAL NUMBER OF SEATS BOOKED: "<<no_of_seat<<endl;
 	}
+	void updated_seats_after_res(string T[])
+	{
+		int m_e,k_e,h_m,bg_exp,b_spl;
+		m_e=stoi(T[6]);
+		k_e=stoi(T[13]);
+		h_m=stoi(T[20]);
+		bg_exp=stoi(T[27]);
+		b_spl=stoi(T[34]);
+		if(tno=="1234")
+        {
+            m_e=m_e-no_of_seat;
+            T[6]=to_string(m_e);
+        }
+        else if(tno=="1235")
+        {
+            k_e=k_e-no_of_seat;
+            T[13]=to_string(k_e);
+        }
+        else if(tno=="1236")
+        {
+            h_m=h_m-no_of_seat;
+            T[20]=to_string(h_m);
+        }
+        else if(tno=="1237")
+        {
+            bg_exp=bg_exp-no_of_seat;
+            T[27]=to_string(bg_exp);
+        }
+        else if(tno=="1238")
+        {
+            b_spl=b_spl-no_of_seat;
+            T[34]=to_string(b_spl);
+        }
+	}
 };
 class enq: public res  //Will be inherited from Res class
 {
@@ -94,6 +128,7 @@ public:
                 res::get();
                 res::calculate();
                 res::display_fare(src,dest);
+                res::updated_seats_after_res(T);
                 break;
             default:
                 cout<<"*Invalid Choice!!*";
@@ -117,7 +152,7 @@ public:
 int main()
 {
 	cout<<"WELCOME TO INDIAN RAILWAYS\n\n";
-    int choice; enq a; res r;
+    int choice; enq a;
     cout<<"ENTER 1 FOR ENQUIRY AND RESERVATION\n"<<"ENTER 2 TO CANCEL RESERVATION\n";
     cin>>choice;
     switch(choice)
