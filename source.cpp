@@ -48,6 +48,7 @@ class res
 		{
 		    cout<<i+1<<" "<<name_of_cus[i]<<endl;
 		}
+		cout<<"Train no.: "<<tno<<endl;
 		cout<<"SOURCE: "<<src<<endl;
 		cout<<"DESTINATION: "<<dest<<endl;
 		cout<<"DATE OF JOURNEY:"<<dd<<"/"<<mm<<"/"<<yy<<endl;
@@ -56,36 +57,15 @@ class res
 	}
 	void updated_seats_after_res(string T[])
 	{
-		int m_e,k_e,h_m,bg_exp,b_spl;
-		m_e=stoi(T[6]);
-		k_e=stoi(T[13]);
-		h_m=stoi(T[20]);
-		bg_exp=stoi(T[27]);
-		b_spl=stoi(T[34]);
-		if(tno=="1234")
+	    int i,cseats,useats;  //cseats:current seats, useats=updated seats;
+	    for(i=0;i<35;i+=7)
         {
-            m_e=m_e-no_of_seat;
-            T[6]=to_string(m_e);
-        }
-        else if(tno=="1235")
-        {
-            k_e=k_e-no_of_seat;
-            T[13]=to_string(k_e);
-        }
-        else if(tno=="1236")
-        {
-            h_m=h_m-no_of_seat;
-            T[20]=to_string(h_m);
-        }
-        else if(tno=="1237")
-        {
-            bg_exp=bg_exp-no_of_seat;
-            T[27]=to_string(bg_exp);
-        }
-        else if(tno=="1238")
-        {
-            b_spl=b_spl-no_of_seat;
-            T[34]=to_string(b_spl);
+            if(tno==T[i])
+            {
+                cseats=stoi(T[i+6]);   //stoi fn converts string to int.
+                useats=cseats-no_of_seat;
+                T[i+6]=to_string(useats);
+            }
         }
 	}
 };
@@ -115,8 +95,8 @@ public:
         }
         if(flag==1)
         {
-            int n;
-            cout<<"\n*Enter 1 for Booking\n"<<"*Enter 0 to search again\n";
+            int n,cont;
+            cout<<"\n*Enter 1 for Booking\n"<<"*Enter 0 to search again\n*Enter 9 to EXIT\n";
             cin>>n;
             switch(n)
             {
@@ -129,6 +109,8 @@ public:
                 res::calculate();
                 res::display_fare(src,dest);
                 res::updated_seats_after_res(T);
+                break;
+            case 9:
                 break;
             default:
                 cout<<"*Invalid Choice!!*";
@@ -152,7 +134,7 @@ public:
 int main()
 {
 	cout<<"WELCOME TO INDIAN RAILWAYS\n\n";
-    int choice; enq a;
+    int choice,cont; enq a;
     cout<<"ENTER 1 FOR ENQUIRY AND RESERVATION\n"<<"ENTER 2 TO CANCEL RESERVATION\n";
     cin>>choice;
     switch(choice)
@@ -160,6 +142,18 @@ int main()
     case 1:
         a.get_eq();
         a.show_eq();
+        while(1)
+            {
+                cout<<"\n\n-----Do u want to Book/Enquire more?-----\n*Enter 1 to CONTINUE\n*Enter 0 to EXIT\n";
+                cin>>cont;
+                if(cont==1)
+                {
+                    a.get_eq();
+                    a.show_eq();
+                }
+                else
+                    break;
+            };
         break;
     case 2:
         break;
@@ -167,5 +161,4 @@ int main()
         cout<<"INVALID RESPONSE!!!\n";
         break;
     }
-
 }
