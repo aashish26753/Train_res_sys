@@ -5,7 +5,7 @@ class res
 {
 	public:
 	string name_of_cus[100],tno;
-	long int con_no;
+	long long con_no;
 	int dd,mm,yy,no_of_seat,i;
 	int total_fare;
 		void get()
@@ -48,11 +48,25 @@ class res
 		{
 		    cout<<i+1<<" "<<name_of_cus[i]<<endl;
 		}
+		cout<<"Train no.: "<<tno<<endl;
 		cout<<"SOURCE: "<<src<<endl;
 		cout<<"DESTINATION: "<<dest<<endl;
 		cout<<"DATE OF JOURNEY:"<<dd<<"/"<<mm<<"/"<<yy<<endl;
 		cout<<"TOTAL FARE: Rs. "<<total_fare<<endl;
 		cout<<"TOTAL NUMBER OF SEATS BOOKED: "<<no_of_seat<<endl;
+	}
+	void updated_seats_after_res(string T[])
+	{
+	    int i,cseats,useats;  //cseats:current seats, useats=updated seats;
+	    for(i=0;i<35;i+=7)
+        {
+            if(tno==T[i])
+            {
+                cseats=stoi(T[i+6]);   //stoi fn converts string to int.
+                useats=cseats-no_of_seat;
+                T[i+6]=to_string(useats);
+            }
+        }
 	}
 };
 class enq: public res  //Will be inherited from Res class
@@ -81,8 +95,8 @@ public:
         }
         if(flag==1)
         {
-            int n;
-            cout<<"\n*Enter 1 for Booking\n"<<"*Enter 0 to search again\n";
+            int n,cont;
+            cout<<"\n*Enter 1 for Booking\n"<<"*Enter 0 to search again\n*Enter 9 to EXIT\n";
             cin>>n;
             switch(n)
             {
@@ -94,6 +108,9 @@ public:
                 res::get();
                 res::calculate();
                 res::display_fare(src,dest);
+                res::updated_seats_after_res(T);
+                break;
+            case 9:
                 break;
             default:
                 cout<<"*Invalid Choice!!*";
@@ -117,14 +134,21 @@ public:
 int main()
 {
 	cout<<"WELCOME TO INDIAN RAILWAYS\n\n";
-    int choice; enq a; res r;
+    int choice,cont; enq a;
     cout<<"ENTER 1 FOR ENQUIRY AND RESERVATION\n"<<"ENTER 2 TO CANCEL RESERVATION\n";
     cin>>choice;
     switch(choice)
     {
     case 1:
-        a.get_eq();
-        a.show_eq();
+        while(1)
+            {
+                a.get_eq();
+                a.show_eq();
+                cout<<"\n\n-----Do u want to Book/Enquire more?-----\n*Enter 1 to CONTINUE\n*Enter 0 to EXIT\n";
+                cin>>cont;
+                if(cont==0)
+                    break;
+            };
         break;
     case 2:
         break;
@@ -132,5 +156,4 @@ int main()
         cout<<"INVALID RESPONSE!!!\n";
         break;
     }
-
 }
