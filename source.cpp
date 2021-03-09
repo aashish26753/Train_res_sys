@@ -140,18 +140,13 @@ int main()
     switch(choice)
     {
     case 1:
-        a.get_eq();
-        a.show_eq();
         while(1)
             {
+                a.get_eq();
+                a.show_eq();
                 cout<<"\n\n-----Do u want to Book/Enquire more?-----\n*Enter 1 to CONTINUE\n*Enter 0 to EXIT\n";
                 cin>>cont;
-                if(cont==1)
-                {
-                    a.get_eq();
-                    a.show_eq();
-                }
-                else
+                if(cont==0)
                     break;
             };
         break;
