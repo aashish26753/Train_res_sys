@@ -1,5 +1,6 @@
 #include<iostream>
 #include<string>
+#include<cstdlib> //for rand() fn (generates random int).
 using namespace std;
 class res
 {
@@ -14,10 +15,11 @@ class res
 		    cin>>tno;
 			cout<<"ENTER THE NUMBER OF PASSENGERS: ";
 			cin>>no_of_seat;
-			cout<<"ENTER THE NAME: ";
+			cout<<"ENTER THE FIRST_NAME and LAST NAME: ";
 			for(i=0;i<no_of_seat;i++)
 			{
 			    cin>>name_of_cus[i];
+			    cin>>name_of_cus[i+no_of_seat];
 			}
 			cout<<"ENTER THE CONTACT NUMBER: ";
 			cin>>con_no;
@@ -40,15 +42,17 @@ class res
 		}
 	void display_fare(char src[], char dest[])
 	{
+	    long long int pnr=4238507112+rand();
 	    cout<<"\n----------------------------------------------\n-----------------------------------------------\n";
 		cout<<"TICKET BOOKED!!!"<<endl;
 		cout<<"THE DETAILS OF THE TRAVEL ARE:"<<endl;
-	    cout<<"Name:\n";
+		cout<<"PNR: "<<pnr<<endl;
+		cout<<"Train no.: "<<tno<<endl;
+	    cout<<"Name of passengers:\n";
 		for(i=0;i<no_of_seat;i++)
 		{
-		    cout<<i+1<<" "<<name_of_cus[i]<<endl;
+		    cout<<i+1<<" "<<name_of_cus[i]<<" "<<name_of_cus[i+no_of_seat]<<endl;
 		}
-		cout<<"Train no.: "<<tno<<endl;
 		cout<<"SOURCE: "<<src<<endl;
 		cout<<"DESTINATION: "<<dest<<endl;
 		cout<<"DATE OF JOURNEY:"<<dd<<"/"<<mm<<"/"<<yy<<endl;
@@ -69,7 +73,7 @@ class res
         }
 	}
 };
-class enq: public res  //Will be inherited from Res class
+class enq: public res
 {
 public:
     string T[35]={"1234","Mumbai exp","Delhi","Mumbai","15:00","15:05","150","1235","Kota exp","Delhi","Kota","18:00","18:05","180","1236","Howrah mail","Delhi","Kolkata","19:00","19:05","250","1237","Bandra-gaya exp","Mumbai","Gaya","20:00","20:05","190","1238","Bandra spl","Delhi","Mumbai","13:00","13:05","195"};
