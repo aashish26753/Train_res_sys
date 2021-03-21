@@ -1,6 +1,7 @@
 #include<iostream>
 #include<string>
 #include<cstdlib> //for rand() fn (generates random int).
+#include<unistd.h>
 using namespace std;
 class res
 {
@@ -44,7 +45,6 @@ class res
 	{
 	    long long int pnr=4238507112+rand();
 	    cout<<"\n----------------------------------------------\n-----------------------------------------------\n";
-		cout<<"TICKET BOOKED!!!"<<endl;
 		cout<<"THE DETAILS OF THE TRAVEL ARE:"<<endl;
 		cout<<"PNR: "<<pnr<<endl;
 		cout<<"Train no.: "<<tno<<endl;
@@ -56,8 +56,8 @@ class res
 		cout<<"SOURCE: "<<src<<endl;
 		cout<<"DESTINATION: "<<dest<<endl;
 		cout<<"DATE OF JOURNEY:"<<dd<<"/"<<mm<<"/"<<yy<<endl;
-		cout<<"TOTAL FARE: Rs. "<<total_fare<<endl;
 		cout<<"TOTAL NUMBER OF SEATS BOOKED: "<<no_of_seat<<endl;
+		cout<<"TOTAL FARE: Rs. "<<total_fare<<endl;
 	}
 	void updated_seats_after_res(string T[])
 	{
@@ -73,7 +73,60 @@ class res
         }
 	}
 };
-class enq: public res
+class payment:public res
+{
+public:
+    void get()
+    {
+    int choice,crd_no,exp,cvv,otp;
+    string upi;
+    cout<<"\n-----------------------------------\nWELCOME TO PAYMENT GATEWAY\n-----------------------------------\n";
+    cout<<"Total amount to be paid: Rs."<<total_fare;
+    cout<<"\n********You want to pay through?********\n";
+    cout<<" 1. Debit card \n 2. Credit Card \n 3. UPI \n";
+    cin>>choice;
+    switch(choice)
+    {
+    case 1:
+    case 2:
+        cout<<"\nCard no.: ";
+        cin>>crd_no;
+        cout<<"Expiry (mmyy): ";
+        cin>>exp;
+        cout<<"CVV: ";
+        cin>>cvv;
+        cout<<"Connecting to payment gateway";
+        for(int i=0; i<5; i++)
+        {
+            sleep(1);
+            cout<<".";
+        }
+        cout<<"\nEnter OTP: ";
+        cin>>otp;
+        cout<<"Connecting to the Bank Server";
+        for(int i=0; i<6; i++)
+        {
+            sleep(1);
+            cout<<".";
+        }
+        cout<<"\n\n--------------------------------\n|    Transaction Successful    |\n--------------------------------\n";
+        break;
+    case 3:
+        cout<<"\nUPI id: ";
+        cin>>upi;
+        cout<<"Check your UPI payment gateway and authorise payment\n";
+        cout<<"Connecting to the Bank Server";
+        for(int i=0; i<10; i++)
+        {
+            sleep(1);
+            cout<<".";
+        }
+        cout<<"\n\n--------------------------------\n|    Transaction Successful    |\n--------------------------------\n";
+        break;
+    }
+    }
+};
+class enq: public payment
 {
 public:
     string T[35]={"1234","Mumbai exp","Delhi","Mumbai","15:00","15:05","150","1235","Kota exp","Delhi","Kota","18:00","18:05","180","1236","Howrah mail","Delhi","Kolkata","19:00","19:05","250","1237","Bandra-gaya exp","Mumbai","Gaya","20:00","20:05","190","1238","Bandra spl","Delhi","Mumbai","13:00","13:05","195"};
@@ -112,6 +165,7 @@ public:
                 res::get();
                 res::calculate();
                 res::display_fare(src,dest);
+                payment::get();
                 res::updated_seats_after_res(T);
                 break;
             case 9:
@@ -133,8 +187,8 @@ public:
                 }
         }
     }
-
 };
+
 int main()
 {
 	cout<<"WELCOME TO INDIAN RAILWAYS\n\n";
